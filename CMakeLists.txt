@@ -42,8 +42,11 @@ endif()
 find_package(ament_cmake QUIET)
 find_package(catkin QUIET)
 
+
+option(ROS_BUILD "Build with CATKIN or AMENT if found" ON)
+
 # http://answers.ros.org/question/230877/optionally-build-a-package-with-catkin/
-if(catkin_FOUND)
+if(catkin_FOUND AND ROS_BUILD)
     set(COMPILING_WITH_CATKIN 1)
 
     message(STATUS "--------------------------------------------------")
@@ -63,7 +66,7 @@ message(STATUS ${catkin_INCLUDE_DIRS})
     include_directories(${catkin_INCLUDE_DIRS})
     add_definitions(-DCOMPILED_WITH_CATKIN)
 
-elseif(ament_cmake_FOUND)
+elseif(ament_cmake_FOUND AND ROS_BUILD)
     set(COMPILING_WITH_AMENT 1)
 
     find_package(ament_cmake REQUIRED)
